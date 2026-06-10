@@ -1,3 +1,4 @@
+import axios from "axios";
 import { FormEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { RadioTower } from "lucide-react";
@@ -18,8 +19,20 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(email, password);
-    } catch {
-      setError("Email yoki parol noto'g'ri");
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 503) {
+          setError("API server to'xtatilgan. Render'da mimo-api va mimo-db ni Resume qiling.");
+        } else if (!err.response) {
+          setError("Serverga ulanib bo'lmadi. mimo-api ishga tushganini kuting (1 daqiqa).");
+        } else if (err.response.status === 401) {
+          setError("Email yoki parol noto'g'ri");
+        } else {
+          setError("Kirishda xato yuz berdi. Keyinroq qayta urinib ko'ring.");
+        }
+      } else {
+        setError("Email yoki parol noto'g'ri");
+      }
     } finally {
       setLoading(false);
     }

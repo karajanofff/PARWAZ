@@ -13,7 +13,18 @@ import reportRoutes from "./routes/report.routes.js";
 
 export const app = express();
 
-app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || origin === env.CLIENT_URL || origin.endsWith(".onrender.com") || origin.startsWith("http://localhost:")) {
+        callback(null, true);
+      } else {
+        callback(null, env.CLIENT_URL);
+      }
+    },
+    credentials: true
+  })
+);
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "MIMO 5G Monitoring API" }));
