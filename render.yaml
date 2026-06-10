@@ -17,7 +17,7 @@ services:
     branch: main
     rootDir: server
     buildCommand: npm ci --include=dev && npx prisma generate && npm run build
-    startCommand: npx prisma db push && npm run prisma:seed && npm run start
+    startCommand: npm run start:render
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
