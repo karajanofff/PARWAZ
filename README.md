@@ -135,10 +135,12 @@ Parol: Operator123!
 2. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**.
 3. `karajanofff/PARWAZ` repozitoriyasini ulang va `render.yaml` ni tasdiqlang.
 4. Blueprint quyidagilarni yaratadi:
-   - `mimo-db` — PostgreSQL bazasi
-   - `mimo-api` — backend API (`/api/health` tekshiruvi bilan)
-   - `mimo-web` — frontend static sayt (SPA routing)
-5. Birinchi deploy tugagach, agar frontend API ga ulanmasa, **mimo-web** servisini qayta build qiling (Clear build cache & deploy).
+   - `parwaz-db` — PostgreSQL bazasi
+   - `parwaz-api` — backend API (`/api/health` tekshiruvi bilan)
+   - `parwaz-web` — frontend static sayt (SPA routing)
+5. Birinchi deploy tugagach, agar frontend API ga ulanmasa, **parwaz-web** servisini qayta build qiling (Clear build cache & deploy).
+
+> **Eslatma:** Render free tierda faqat 1 ta bepul baza bo'ladi. Mavjud servislarni qayta nomlash yangi resurs yaratadi — avval eskisini o'chiring yoki `render.yaml` dagi nomlarni o'zgartirmang.
 
 Demo login ma'lumotlari production'da ham bir xil:
 
