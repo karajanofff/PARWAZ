@@ -17,8 +17,7 @@ services:
     region: frankfurt
     rootDir: server
     buildCommand: npm ci --include=dev && npx prisma generate && npm run build
-    preDeployCommand: npx prisma db push && npm run prisma:seed
-    startCommand: npm run start
+    startCommand: npx prisma db push && npm run prisma:seed && npm run start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
@@ -44,7 +43,6 @@ services:
     name: parwaz-web
     runtime: static
     plan: free
-    region: frankfurt
     rootDir: client
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
