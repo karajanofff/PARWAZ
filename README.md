@@ -131,17 +131,15 @@ Parol: Operator123!
 
 ## Render orqali deploy
 
-1. Kodni GitHub'ga push qiling.
-2. Agar eski `parwaz-*` servislar mavjud bo'lsa, Render Dashboard'dan ularni **o'chiring** (`parwaz-db`, `parwaz-api`, `parwaz-web`).
-3. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**.
-4. `karajanofff/PARWAZ` repozitoriyasini ulang va `render.yaml` ni tasdiqlang.
-5. Blueprint quyidagilarni yaratadi:
+1. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**.
+2. `karajanofff/PARWAZ` repozitoriyasini ulang, branch: `main`, fayl: `render.yaml`.
+3. **Apply** bosing. Quyidagi servislar yaratiladi:
    - `mimo-db` — PostgreSQL bazasi
-   - `mimo-api` — backend API (`/api/health` tekshiruvi bilan)
-   - `mimo-web` — frontend static sayt (SPA routing)
-6. Birinchi deploy tugagach, agar frontend API ga ulanmasa, **mimo-web** servisini qayta build qiling (Clear build cache & deploy).
+   - `mimo-api` — backend API
+   - `mimo-web` — frontend static sayt
+4. Sayt manzili: `https://mimo-web.onrender.com`
 
-> **Eslatma:** Render free tierda faqat 1 ta bepul baza bo'ladi. Nom o'zgartirish yangi resurs yaratadi — avval eski servislarni o'chiring.
+> **Eslatma:** Render free tierda faqat 1 ta bepul baza bo'ladi. Eski servislar qolgan bo'lsa, avval ularni o'chiring, keyin Blueprint sync qiling.
 
 Demo login ma'lumotlari production'da ham bir xil:
 

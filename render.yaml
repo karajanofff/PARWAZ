@@ -1,5 +1,5 @@
-# Render Blueprint — MIMO 5G Monitoring Platform
-# Deploy: Render Dashboard → New → Blueprint → repo tanlang
+# MIMO 5G Monitoring — Render Blueprint
+# Deploy: Render Dashboard → New → Blueprint → karajanofff/PARWAZ
 
 databases:
   - name: mimo-db
@@ -9,12 +9,12 @@ databases:
     user: mimo_user
 
 services:
-  # Backend API (Node.js + Express + Prisma)
   - type: web
     name: mimo-api
     runtime: node
     plan: free
     region: frankfurt
+    branch: main
     rootDir: server
     buildCommand: npm ci --include=dev && npx prisma generate && npm run build
     startCommand: npx prisma db push && npm run prisma:seed && npm run start
@@ -38,10 +38,10 @@ services:
           name: mimo-web
           envVarKey: RENDER_EXTERNAL_URL
 
-  # Frontend (Vite + React static site)
   - type: web
     name: mimo-web
     runtime: static
+    branch: main
     rootDir: client
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
