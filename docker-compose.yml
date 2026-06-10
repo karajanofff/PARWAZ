@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mimo_5g_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mimo_user
+      POSTGRES_PASSWORD: mimo_password
+      POSTGRES_DB: mimo_monitoring
+    ports:
+      - "5432:5432"
+    volumes:
+      - mimo_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mimo_user -d mimo_monitoring"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: mimo_5g_server
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://mimo_user:mimo_password@postgres:5432/mimo_monitoring?schema=public
+      JWT_SECRET: mimo-graduation-secret-change-me
+      JWT_EXPIRES_IN: 1d
+      PORT: 5000
+      CLIENT_URL: http://localhost:5173
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:5000/api
+    container_name: mimo_5g_client
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - server
+
+volumes:
+  mimo_pgdata:
