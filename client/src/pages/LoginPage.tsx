@@ -22,9 +22,9 @@ export default function LoginPage() {
     } catch (err) {
       if (axios.isAxiosError(err)) {
         if (err.response?.status === 503) {
-          setError("API server to'xtatilgan. Render'da mimo-api va mimo-db ni Resume qiling.");
+          setError("mimo-api to'xtatilgan! Render Dashboard → mimo-api → Resume bosing.");
         } else if (!err.response) {
-          setError("Serverga ulanib bo'lmadi. mimo-api ishga tushganini kuting (1 daqiqa).");
+          setError("mimo-api javob bermayapti. Render'da mimo-api va mimo-db ni Resume qiling, 1-2 daqiqa kuting.");
         } else if (err.response.status === 401) {
           setError("Email yoki parol noto'g'ri");
         } else {

@@ -1,6 +1,13 @@
 import axios from "axios";
 
 function resolveApiBaseUrl(): string {
+  const hostname = window.location.hostname;
+
+  if (hostname.endsWith(".onrender.com")) {
+    const apiHost = hostname.includes("-web") ? hostname.replace("-web", "-api") : "mimo-api.onrender.com";
+    return `https://${apiHost}/api`;
+  }
+
   const raw = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
   if (raw.startsWith("http://") || raw.startsWith("https://")) {
     return raw.endsWith("/api") ? raw : `${raw.replace(/\/$/, "")}/api`;
