@@ -1,5 +1,5 @@
 # MIMO 5G Monitoring — Render Blueprint
-# Deploy: Render Dashboard → New → Blueprint → karajanofff/PARWAZ
+# Bitta servis: API + frontend birgalikda
 
 databases:
   - name: mimo-db
@@ -15,9 +15,8 @@ services:
     plan: free
     region: frankfurt
     branch: main
-    rootDir: server
-    buildCommand: npm ci --include=dev && npx prisma generate && npm run build
-    startCommand: npm run start:render
+    buildCommand: npm ci --prefix client && npm run build --prefix client && npm ci --include=dev --prefix server && npm run prisma:generate --prefix server && npm run build --prefix server && cp -r client/dist server/public
+    startCommand: npm run start:render --prefix server
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
@@ -33,26 +32,6 @@ services:
           name: mimo-db
           property: connectionString
       - key: CLIENT_URL
-        fromService:
-          type: web
-          name: mimo-web
-          envVarKey: RENDER_EXTERNAL_URL
-
-  - type: web
-    name: mimo-web
-    runtime: static
-    branch: main
-    rootDir: client
-    buildCommand: npm ci && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: NODE_VERSION
-        value: "22"
-      - key: VITE_API_URL
         fromService:
           type: web
           name: mimo-api

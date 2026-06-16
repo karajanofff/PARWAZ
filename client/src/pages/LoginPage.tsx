@@ -24,7 +24,7 @@ export default function LoginPage() {
         if (err.response?.status === 503) {
           setError("mimo-api to'xtatilgan! Render Dashboard → mimo-api → Resume bosing.");
         } else if (!err.response) {
-          setError("mimo-api javob bermayapti. Render'da mimo-api va mimo-db ni Resume qiling, 1-2 daqiqa kuting.");
+          setError("Server javob bermayapti. Render'da mimo-api va mimo-db ni Resume qiling, keyin https://mimo-api.onrender.com oching.");
         } else if (err.response.status === 401) {
           setError("Email yoki parol noto'g'ri");
         } else {

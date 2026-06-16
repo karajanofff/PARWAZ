@@ -133,13 +133,12 @@ Parol: Operator123!
 
 1. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint**.
 2. `karajanofff/PARWAZ` repozitoriyasini ulang, branch: `main`, fayl: `render.yaml`.
-3. **Apply** bosing. Quyidagi servislar yaratiladi:
+3. **Apply** bosing. Quyidagi resurslar yaratiladi:
    - `mimo-db` — PostgreSQL bazasi
-   - `mimo-api` — backend API
-   - `mimo-web` — frontend static sayt
-4. Sayt manzili: `https://mimo-web.onrender.com`
+   - `mimo-api` — API + frontend (bitta servis)
+4. Sayt manzili: `https://mimo-api.onrender.com`
 
-> **Eslatma:** Render free tierda faqat 1 ta bepul baza bo'ladi. Eski servislar qolgan bo'lsa, avval ularni o'chiring, keyin Blueprint sync qiling.
+> **Eslatma:** Agar `mimo-api` yoki `mimo-db` to'xtatilgan bo'lsa, Render Dashboard'dan **Resume** qiling.
 
 Demo login ma'lumotlari production'da ham bir xil:
 
