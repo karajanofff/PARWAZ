@@ -15,7 +15,7 @@ services:
     plan: free
     region: frankfurt
     branch: main
-    buildCommand: npm ci --prefix client && npm run build --prefix client && npm ci --include=dev --prefix server && npm run prisma:generate --prefix server && npm run build --prefix server && cp -r client/dist server/public
+    buildCommand: npm ci --include=dev --prefix client && npm run build --prefix client && npm ci --include=dev --prefix server && npm run prisma:generate --prefix server && npm run build --prefix server && rm -rf server/public && cp -r client/dist server/public
     startCommand: npm run start:render --prefix server
     healthCheckPath: /api/health
     envVars:
